@@ -10,6 +10,7 @@ export const SITE_CONFIG: SiteConfig = {
   navLinks: [
     { text: "Experience", href: "#experience" },
     { text: "Blog", href: "#blog" },
+    { text: "Projects", href: "#projects" },
     { text: "About", href: "#about" },
   ],
   socialLinks: [
@@ -28,7 +29,7 @@ export const SITE_CONTENT: SiteContent = {
     name: "Suraj Shetty",
     specialty: "Software Developer",
     summary:
-      "I am a backend software developer passionate about building scalable applications using laravel and exploring GenAI and LLMs. Currently, I’m enhancing my skills in DevOps and front-end technologies like Astro.js and ReactJS to create seamless, innovative solutions.",
+      "I am a backend software developer passionate about building scalable applications using laravel and exploring GenAI and LLMs. Currently, I'm enhancing my skills in DevOps and front-end technologies like Astro.js and ReactJS to create seamless, innovative solutions.",
     email: "shetty44444@gmail.com",
   },
   experience: [
@@ -83,11 +84,34 @@ export const SITE_CONTENT: SiteContent = {
       image: "/medium-1.webp",
     },
   ],
+  projects: [
+    {
+      name: "Shopify Clone",
+      summary: "A full-featured e-commerce platform built with modern web technologies.",
+      linkPreview: "https://github.com/surajshetty",
+      linkSource: "https://github.com/surajshetty",
+      image: "/shopify-clon.png",
+    },
+    {
+      name: "Instagram Clone",
+      summary: "A social media application with real-time features and image sharing.",
+      linkPreview: "https://github.com/surajshetty",
+      linkSource: "https://github.com/surajshetty",
+      image: "/clone-ig.png",
+    },
+    {
+      name: "Spotify Clone",
+      summary: "A music streaming platform with playlist management and audio playback.",
+      linkPreview: "https://github.com/surajshetty",
+      linkSource: "https://github.com/surajshetty",
+      image: "/spotifu.png",
+    }
+  ],
   about: {
     description: `
-      Hi, I’m Alejandro Múnez, a passionate Mobile and Web Developer with a knack for crafting seamless digital experiences. With a strong background in both Android and iOS development, as well as front-end web technologies, I thrive in the intersection where creativity meets technology.
+      Hi, I'm Alejandro Múnez, a passionate Mobile and Web Developer with a knack for crafting seamless digital experiences. With a strong background in both Android and iOS development, as well as front-end web technologies, I thrive in the intersection where creativity meets technology.
 
-      Over the years, I’ve honed my skills in building robust, user-friendly applications that not only meet the needs of users but also push the boundaries of what’s possible. My blog range from innovative mobile applications to responsive web designs, all with a focus on performance, security, and scalability.
+      Over the years, I've honed my skills in building robust, user-friendly applications that not only meet the needs of users but also push the boundaries of what's possible. My blog range from innovative mobile applications to responsive web designs, all with a focus on performance, security, and scalability.
     `,
     image: "/alejandro-big.jpg",
   },

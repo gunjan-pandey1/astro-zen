@@ -12,6 +12,7 @@ export interface SiteContent {
   hero: HeroProps;
   experience: ExperienceProps[];
   blog: ProjectProps[];
+  projects: ProjectProps[];
   about: AboutProps;
 }
 
