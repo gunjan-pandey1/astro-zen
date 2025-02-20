@@ -5,7 +5,8 @@ type Props = HeroProps;
 const { name, specialty, summary, email } = Astro.props;
 ---
 
-<section class="py-24 md:py-32" id="#hero">
+<section class="py-24 md:py-32 relative overflow-hidden scroll-animation" id="#hero">
+  <div class="animated-bg absolute inset-0 w-full h-full -z-10"></div>
   <h1
     class="text-7xl font-serif mb-1.5 sm:text-8xl md:text-9xl md:mb-0 text-white font-bold tracking-tightest"
   >

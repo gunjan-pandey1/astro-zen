@@ -12,7 +12,7 @@ const { blog } = Astro.props;
 
 <Section text="Featured Blog" href="blog">
   {
-    blog.map(({ name, summary, image, linkPreview, linkSource }, index) => {
+    blog.map(({ name, summary, image, linkPreview }, index) => {
       const top = 98 + index * 40;
       return (
         <div
@@ -26,13 +26,6 @@ const { blog } = Astro.props;
               </h3>
               <p class="text-neutral text-base">{summary}</p>
               <div class="pt-10 flex gap-5 text-white">
-                {/* <a
-                  href={linkSource}
-                  target="_blank"
-                  class="hover:underline after:content-[url(/external.svg)] after:relative after:bottom-[-5px]"
-                >
-                  Source
-                </a> */}
                 <a
                   href={linkPreview}
                   target="_blank"
