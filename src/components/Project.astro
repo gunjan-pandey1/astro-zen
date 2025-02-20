@@ -13,47 +13,54 @@ const { projects } = Astro.props;
 <Section text="Featured Projects" href="projects">
   <div class="relative overflow-hidden">
     <div class="flex snap-x snap-mandatory overflow-x-auto gap-8 pb-8 hide-scrollbar">
-      {projects.map(({ name, summary, image, linkPreview, linkSource }) => (
-        <div class="snap-center flex-shrink-0 w-full">
-          <div class="rounded-2xl border border-neutral/20 bg-black">
-            <div class="w-full h-[580px] md:h-96 relative z-[1] bg-[#1c232d]/85 bg-difu before:content-[''] before:rounded-2xl before:absolute before:z-[-1] before:opacity-[5%] before:inset-0 before:bg-[url(/raja.png)] before:bg-repeat before:bg-[length:128px] rounded-2xl grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2">
-              <div class="px-6 pt-12">
-                <h3 class="text-3xl font-medium font-serif mb-5 text-primary">
-                  {name}
-                </h3>
-                <p class="text-neutral text-base">{summary}</p>
-                <div class="pt-10 flex gap-5 text-white">
-                  <a
-                    href={linkPreview}
-                    target="_blank"
-                    class="hover:underline after:content-[url(/external.svg)] after:relative after:bottom-[-5px]"
-                  >
-                    Preview
-                  </a>
-                  {linkSource && (
+      {projects.map(({ name, summary, image, linkPreview, linkSource }, index) => {
+        const top = 98 + index * 40;
+        return (
+          <div style={`top: ${top}px;`} class="snap-center flex-shrink-0 w-[90%] md:w-[600px]">
+            <div class="rounded-2xl border border-neutral/20 bg-black">
+              <div class="w-full h-[580px] md:h-96 relative z-[1] bg-[#1c232d]/85 bg-difu before:content-[''] before:rounded-2xl before:absolute before:z-[-1] before:opacity-[5%] before:inset-0 before:bg-[url(/raja.png)] before:bg-repeat before:bg-[length:128px] rounded-2xl grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2">
+                <div class="px-6 pt-12">
+                  <h3 class="text-3xl font-medium font-serif mb-5 text-primary">
+                    {name}
+                  </h3>
+                  <p class="text-neutral text-base">{summary}</p>
+                  <div class="pt-10 flex gap-5 text-white">
                     <a
-                      href={linkSource}
+                      href={linkPreview}
                       target="_blank"
                       class="hover:underline after:content-[url(/external.svg)] after:relative after:bottom-[-5px]"
                     >
-                      GitHub
+                      Preview
                     </a>
-                  )}
+                    {linkSource && (
+                      <a
+                        href={linkSource}
+                        target="_blank"
+                        class="hover:underline after:content-[url(/external.svg)] after:relative after:bottom-[-5px]"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div class="flex items-end justify-end overflow-hidden">
-                <Image
-                  src={image}
-                  width={580}
-                  height={580}
-                  alt={name}
-                  class="object-cover rounded-br-2xl"
-                />
+                <div class="flex items-end justify-end overflow-hidden">
+                  <Image
+                    src={image}
+                    width={580}
+                    height={580}
+                    alt={name}
+                    class="object-cover rounded-br-2xl"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
+    </div>
+    <div class="absolute left-0 right-0 bottom-0 flex justify-center gap-2 pb-2">
+      <button class="text-white hover:text-primary" onclick="document.querySelector('.snap-mandatory').scrollBy({left: -600, behavior: 'smooth'})">&lt;</button>
+      <button class="text-white hover:text-primary" onclick="document.querySelector('.snap-mandatory').scrollBy({left: 600, behavior: 'smooth'})">&gt;</button>
     </div>
   </div>
 </Section>
