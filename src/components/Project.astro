@@ -85,22 +85,39 @@ const { projects } = Astro.props;
     if (!carousel) return;
 
     let scrollAmount = 0;
-    const slideTimer = setInterval(() => {
-      carousel.scrollLeft += speed;
-      scrollAmount += speed;
+    let slideTimer: number;
 
-      if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
-        carousel.scrollLeft = 0;
-        scrollAmount = 0;
-      }
-    }, 30);
+    const startScrolling = () => {
+      slideTimer = setInterval(() => {
+        carousel.scrollLeft += speed;
+        scrollAmount += speed;
 
-    carousel.addEventListener('mouseover', () => clearInterval(slideTimer));
-    carousel.addEventListener('mouseout', () => autoScroll(elementId, speed));
+        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+          carousel.scrollLeft = 0;
+          scrollAmount = 0;
+        }
+      }, 30);
+    };
+
+    const stopScrolling = () => {
+      clearInterval(slideTimer);
+    };
+
+    carousel.addEventListener('mouseover', stopScrolling);
+    carousel.addEventListener('mouseout', startScrolling);
+
+    startScrolling();
+
+    return () => {
+      stopScrolling();
+      carousel.removeEventListener('mouseover', stopScrolling);
+      carousel.removeEventListener('mouseout', startScrolling);
+    };
   }
 
   document.addEventListener('astro:page-load', () => {
     autoScroll('project-carousel');
+    autoScroll('blog-carousel');
   });
 </script>
 

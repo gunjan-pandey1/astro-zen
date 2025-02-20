@@ -70,31 +70,6 @@ const { blog } = Astro.props;
   </div>
 </Section>
 
-<script>
-  function autoScroll(elementId: string, speed: number = 2) {
-    const carousel = document.getElementById(elementId);
-    if (!carousel) return;
-
-    let scrollAmount = 0;
-    const slideTimer = setInterval(() => {
-      carousel.scrollLeft += speed;
-      scrollAmount += speed;
-
-      if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
-        carousel.scrollLeft = 0;
-        scrollAmount = 0;
-      }
-    }, 30);
-
-    carousel.addEventListener('mouseover', () => clearInterval(slideTimer));
-    carousel.addEventListener('mouseout', () => autoScroll(elementId, speed));
-  }
-
-  document.addEventListener('astro:page-load', () => {
-    autoScroll('blog-carousel');
-  });
-</script>
-
 <style>
   .hide-scrollbar {
     -ms-overflow-style: none;
