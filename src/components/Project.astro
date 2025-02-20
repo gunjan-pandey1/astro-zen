@@ -80,45 +80,35 @@ const { projects } = Astro.props;
 </Section>
 
 <script>
-  function autoScroll(elementId: string, speed: number = 2) {
-    const carousel = document.getElementById(elementId);
-    if (!carousel) return;
+  const projectCarousel = document.getElementById('project-carousel') as HTMLElement;
+  let projectScrollInterval: number;
+  const scrollAmount = 300;
+  const scrollInterval = 3000;
 
-    let scrollAmount = 0;
-    let slideTimer: number;
-
-    const startScrolling = () => {
-      slideTimer = setInterval(() => {
-        carousel.scrollLeft += speed;
-        scrollAmount += speed;
-
-        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
-          carousel.scrollLeft = 0;
-          scrollAmount = 0;
+  if (projectCarousel) {
+    function startProjectAutoScroll(): void {
+      projectScrollInterval = window.setInterval(() => {
+        const maxScroll = projectCarousel.scrollWidth - projectCarousel.clientWidth;
+        const newScrollPosition = projectCarousel.scrollLeft + scrollAmount;
+        
+        if (newScrollPosition >= maxScroll) {
+          projectCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          projectCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
-      }, 30);
-    };
+      }, scrollInterval);
+    }
 
-    const stopScrolling = () => {
-      clearInterval(slideTimer);
-    };
+    projectCarousel.addEventListener('mouseenter', () => {
+      window.clearInterval(projectScrollInterval);
+    });
 
-    carousel.addEventListener('mouseover', stopScrolling);
-    carousel.addEventListener('mouseout', startScrolling);
+    projectCarousel.addEventListener('mouseleave', () => {
+      startProjectAutoScroll();
+    });
 
-    startScrolling();
-
-    return () => {
-      stopScrolling();
-      carousel.removeEventListener('mouseover', stopScrolling);
-      carousel.removeEventListener('mouseout', startScrolling);
-    };
+    startProjectAutoScroll();
   }
-
-  document.addEventListener('astro:page-load', () => {
-    autoScroll('project-carousel');
-    autoScroll('blog-carousel');
-  });
 </script>
 
 <style>

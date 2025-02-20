@@ -68,7 +68,37 @@ const { blog } = Astro.props;
       </svg>
     </button>
   </div>
-</Section>
+<script>
+  const blogCarousel = document.getElementById('blog-carousel') as HTMLElement;
+  let blogScrollInterval: number;
+  const scrollAmount = 300;
+  const scrollInterval = 3000;
+
+  if (blogCarousel) {
+    function startBlogAutoScroll(): void {
+      blogScrollInterval = window.setInterval(() => {
+        const maxScroll = blogCarousel.scrollWidth - blogCarousel.clientWidth;
+        const newScrollPosition = blogCarousel.scrollLeft + scrollAmount;
+        
+        if (newScrollPosition >= maxScroll) {
+          blogCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          blogCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }, scrollInterval);
+    }
+
+    blogCarousel.addEventListener('mouseenter', () => {
+      window.clearInterval(blogScrollInterval);
+    });
+
+    blogCarousel.addEventListener('mouseleave', () => {
+      startBlogAutoScroll();
+    });
+
+    startBlogAutoScroll();
+  }
+</script>
 
 <style>
   .hide-scrollbar {
