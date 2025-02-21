@@ -9,115 +9,109 @@ import About from "@components/About.astro";
 ---
 
 <Layout>
-  <div class="scroll-container">
-    <section class="section" data-animation="fade-up">
-      <Hero {...SITE_CONTENT.hero} />
-    </section>
-    
-    <section class="section" data-animation="fade-up">
-      <Experience experience={SITE_CONTENT.experience} />
-    </section>
-    
-    <section class="section" data-animation="fade-up">
-      <Blog blog={SITE_CONTENT.blog} />
-    </section>
-    
-    <section class="section" data-animation="fade-up">
-      <Project projects={SITE_CONTENT.projects} />
-    </section>
-    
-    <section class="section" data-animation="fade-up">
-      <About {...SITE_CONTENT.about} name={SITE_CONTENT.hero.name} />
-    </section>
-  </div>
+  <Hero {...SITE_CONTENT.hero} />
+  <Experience experience={SITE_CONTENT.experience} />
+  <Blog blog={SITE_CONTENT.blog} />
+  <Project projects={SITE_CONTENT.projects} />
+  <About {...SITE_CONTENT.about} name={SITE_CONTENT.hero.name} />
 </Layout>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  async function initAnimations() {
+    try {
+      const gsap = (await import('gsap')).default;
+      const ScrollTrigger = (await import('gsap/ScrollTrigger')).default;
+      
+      gsap.registerPlugin(ScrollTrigger);
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Animate sections on scroll
-  const sections = document.querySelectorAll('.section');
-
-  sections.forEach((section) => {
-    gsap.from(section, {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%',
-        end: 'top 20%',
-        toggleActions: 'play none none reverse',
+      // Hero section animation
+      const heroTitle = document.querySelector('#hero h1');
+      const heroParagraphs = document.querySelectorAll('#hero p');
+      
+      if (heroTitle) {
+        gsap.from(heroTitle, {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out'
+        });
       }
-    });
-  });
 
-  // Hero section special animation
-  gsap.from('.hero-content', {
-    opacity: 0,
-    y: 100,
-    duration: 1.5,
-    ease: 'power4.out',
-  });
+      if (heroParagraphs.length) {
+        gsap.from(heroParagraphs, {
+          y: 30,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power3.out'
+        });
+      }
 
-  // Stagger animation for experience items
-  gsap.from('.experience-item', {
-    opacity: 0,
-    x: -50,
-    stagger: 0.2,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: '.experience-section',
-      start: 'top 70%',
+      // Experience section animation
+      const experienceItems = document.querySelectorAll('#experience .mb-10');
+      if (experienceItems.length) {
+        gsap.from(experienceItems, {
+          y: 30,
+          opacity: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: '#experience',
+            start: 'top 80%',
+          }
+        });
+      }
+
+      // Blog section animation
+      const blogItems = document.querySelectorAll('#blog .sticky');
+      if (blogItems.length) {
+        gsap.from(blogItems, {
+          y: 50,
+          opacity: 0,
+          stagger: 0.2,
+          duration: 1,
+          scrollTrigger: {
+            trigger: '#blog',
+            start: 'top 75%',
+          }
+        });
+      }
+
+      // Project section animation
+      const projectItems = document.querySelectorAll('#projects .rounded-2xl');
+      if (projectItems.length) {
+        gsap.from(projectItems, {
+          scale: 0.9,
+          opacity: 0,
+          stagger: 0.2,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: '#projects',
+            start: 'top 75%',
+          }
+        });
+      }
+
+      // About section animation
+      const aboutSection = document.querySelector('#about .flex');
+      if (aboutSection) {
+        gsap.from(aboutSection, {
+          opacity: 0,
+          y: 30,
+          duration: 1,
+          scrollTrigger: {
+            trigger: '#about',
+            start: 'top 75%',
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error in animations:', error);
     }
-  });
+  }
 
-  // Project cards animation
-  gsap.from('.project-card', {
-    opacity: 0,
-    scale: 0.8,
-    stagger: 0.2,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: '.project-section',
-      start: 'top 60%',
-    }
-  });
-
-  // Blog posts animation
-  gsap.from('.blog-post', {
-    opacity: 0,
-    y: 100,
-    stagger: 0.3,
-    duration: 1,
-    scrollTrigger: {
-      trigger: '.blog-section',
-      start: 'top 70%',
-    }
-  });
-
-  // About section animation
-  gsap.from('.about-content', {
-    opacity: 0,
-    scale: 0.9,
-    duration: 1,
-    scrollTrigger: {
-      trigger: '.about-section',
-      start: 'top 75%',
-    }
+  // Initialize animations when the DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    initAnimations();
   });
 </script>
-
-<style>
-  .scroll-container {
-    overflow-x: hidden;
-  }
-
-  .section {
-    opacity: 0;
-  }
-</style>
