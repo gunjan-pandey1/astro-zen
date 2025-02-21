@@ -109,9 +109,9 @@ export const SITE_CONTENT: SiteContent = {
   ],
   about: {
     description: `
-      Hi, I'm Alejandro Múnez, a passionate Mobile and Web Developer with a knack for crafting seamless digital experiences. With a strong background in both Android and iOS development, as well as front-end web technologies, I thrive in the intersection where creativity meets technology.
+      Passionate backend developer with a strong foundation in designing and implementing scalable and efficient server-side solutions. Specialized in creating robust APIs and database management. Committed to staying ahead in technology trends, I have a keen interest in Microservices architecture and a new curve in data analysis and data science, driving innovations towards AI-powered solutions. Eager to contribute to transformative projects and collaborate with like-minded professionals in the tech community. Let's connect and explore the possibilities of creating impactful solutions together!
 
-      Over the years, I've honed my skills in building robust, user-friendly applications that not only meet the needs of users but also push the boundaries of what's possible. My blog range from innovative mobile applications to responsive web designs, all with a focus on performance, security, and scalability.
+      #BackendDevelopment #Microservices #DataScience #AI #TechInnovation
     `,
     image: "/alejandro-big.jpg",
   },
