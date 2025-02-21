@@ -12,30 +12,86 @@ const { experience } = Astro.props;
 <Section text="Work Experience" href="experience">
   {
     experience.map(({ company, position, startDate, endDate, summary }) => (
-      <div class="mb-10">
-        <h3 class="text-2xl font-serif font-semibold text-white mb-1.5">
+      <div class="mb-10 experience-item">
+        <h3 class="text-2xl font-serif font-semibold text-white mb-1.5 company-title">
           {company}
         </h3>
         <div class="flex flex-col items-start pb-5">
-          <h4 class="text-2xl font-serif text-primary font-medium mb-0.5">
+          <h4 class="text-2xl font-serif text-primary font-medium mb-0.5 position-title">
             {position}
           </h4>
-          <span class="text-sm text-white/70 pb-[2px]">
+          <span class="text-sm text-white/70 pb-[2px] date-range">
             {startDate} — {endDate}
           </span>
         </div>
         {Array.isArray(summary) ? (
-          <ul class="list-none">
+          <ul class="list-none summary-list">
             {summary.map((log) => (
-              <li class="text-base relative text-neutral pl-8 mb-3 before:absolute before:left-0 before:top-1 before:content-[url(/check.svg)]">
+              <li class="text-base relative text-neutral pl-8 mb-3 before:absolute before:left-0 before:top-1 before:content-[url(/check.svg)] summary-item">
                 {log}
               </li>
             ))}
           </ul>
         ) : (
-          <p class="text-base text-neutral">{summary}</p>
+          <p class="text-base text-neutral summary-text">{summary}</p>
         )}
       </div>
     ))
   }
 </Section>
+
+<script>
+  async function initExperienceAnimation() {
+    const gsap = (await import('gsap')).default;
+    const ScrollTrigger = (await import('gsap/ScrollTrigger')).default;
+    
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.querySelectorAll('.experience-item').forEach((item) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: item,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      tl.from(item.querySelector('.company-title'), {
+        x: -30,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out"
+      })
+      .from(item.querySelector('.position-title'), {
+        y: 20,
+        opacity: 0,
+        duration: 0.5,
+      }, "-=0.3")
+      .from(item.querySelector('.date-range'), {
+        x: -20,
+        opacity: 0,
+        duration: 0.4,
+      }, "-=0.2");
+
+      // Animate summary items
+      const summaryItems = item.querySelectorAll('.summary-item');
+      if (summaryItems.length) {
+        tl.from(summaryItems, {
+          x: -20,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power2.out"
+        }, "-=0.2");
+      } else {
+        tl.from(item.querySelector('.summary-text'), {
+          y: 20,
+          opacity: 0,
+          duration: 0.4,
+        }, "-=0.2");
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initExperienceAnimation);
+</script>
