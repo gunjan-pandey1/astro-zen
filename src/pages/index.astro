@@ -21,48 +21,87 @@ import About from "@components/About.astro";
     try {
       const gsap = (await import('gsap')).default;
       const ScrollTrigger = (await import('gsap/ScrollTrigger')).default;
+      const { TextPlugin } = await import('gsap/TextPlugin');
       
-      gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-      // Hero section animation
-      const heroTitle = document.querySelector('#hero h1');
-      const heroParagraphs = document.querySelectorAll('#hero p');
+      // Hero section enhanced animation
+      const heroTimeline = gsap.timeline({ defaults: { ease: "power4.out" }});
       
-      if (heroTitle) {
-        gsap.from(heroTitle, {
+      heroTimeline
+        .from('#hero h1', {
+          y: 100,
+          opacity: 0,
+          duration: 1.2,
+          rotateX: 80,
+          transformOrigin: "0% 50% -50",
+          ease: "power4.out"
+        })
+        .from('#hero p:first-of-type', {
           y: 50,
           opacity: 0,
           duration: 1,
-          ease: 'power3.out'
-        });
-      }
-
-      if (heroParagraphs.length) {
-        gsap.from(heroParagraphs, {
-          y: 30,
+          scale: 0.9,
+        }, "-=0.8")
+        .from('#hero p:last-of-type', {
+          x: -50,
           opacity: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'power3.out'
-        });
-      }
-
-      // Experience section animation
-      const experienceItems = document.querySelectorAll('#experience .mb-10');
-      if (experienceItems.length) {
-        gsap.from(experienceItems, {
-          y: 30,
-          opacity: 0,
-          stagger: 0.15,
           duration: 0.8,
+        }, "-=0.6")
+        .from('#hero a', {
+          scale: 0,
+          opacity: 0,
+          duration: 0.6,
+          ease: "back.out(1.7)"
+        }, "-=0.4");
+
+      // Experience section enhanced animation
+      const experienceItems = document.querySelectorAll('#experience .mb-10');
+      
+      if (experienceItems.length) {
+        experienceItems.forEach((item, index) => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 80%',
+              end: 'bottom 20%',
+              toggleActions: 'play none none reverse'
+            }
+          });
+
+          tl.from(item.querySelector('h3'), {
+            x: -50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out"
+          })
+          .from(item.querySelector('.text-primary'), {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+          }, "-=0.4")
+          .from(item.querySelector('.text-neutral'), {
+            opacity: 0,
+            duration: 0.5,
+            clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+            ease: "power2.out"
+          }, "-=0.2");
+        });
+
+        // Parallax effect for experience section
+        gsap.to('#experience', {
           scrollTrigger: {
             trigger: '#experience',
-            start: 'top 80%',
-          }
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          },
+          y: (i, target) => -target.offsetHeight * 0.1,
+          ease: "none"
         });
       }
 
-      // Blog section animation
+      // Rest of the animations remain unchanged
       const blogItems = document.querySelectorAll('#blog .sticky');
       if (blogItems.length) {
         gsap.from(blogItems, {
@@ -110,7 +149,6 @@ import About from "@components/About.astro";
     }
   }
 
-  // Initialize animations when the DOM is loaded
   document.addEventListener('DOMContentLoaded', () => {
     initAnimations();
   });
