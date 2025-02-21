@@ -32,6 +32,10 @@ export const SITE_CONTENT: SiteContent = {
       "I am a backend software developer passionate about building scalable applications using laravel and exploring GenAI and LLMs. Currently, I'm enhancing my skills in DevOps and front-end technologies like Astro.js and ReactJS to create seamless, innovative solutions.",
     email: "shetty44444@gmail.com",
   },
+  skills: {
+    row1: ["LARAVEL", "PHP", "PYTHON", "JAVASCRIPT", "REACTJS", "NODEJS", "TYPESCRIPT"],
+    row2: ["RABBITMQ", "REDIS", "DOCKER", "KUBERNETES", "AWS", "MONGODB", "MYSQL"]
+  },
   experience: [
     {
       company: "Pay1",

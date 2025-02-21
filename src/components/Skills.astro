@@ -1,0 +1,75 @@
+---
+import Section from "./Section.astro";
+import { SITE_CONTENT } from "@config";
+
+const { row1, row2 } = SITE_CONTENT.skills;
+---
+
+<Section text="Experience Skills" href="skills">
+  <div class="skills-container overflow-hidden py-10">
+    <div class="skills-row-1 whitespace-nowrap mb-8">
+      <div class="inline-block">
+        {row1.map(skill => (
+          <span class="text-4xl md:text-5xl font-bold text-white/80 mx-4">{skill}</span>
+        ))}
+      </div>
+    </div>
+    
+    <div class="skills-row-2 whitespace-nowrap">
+      <div class="inline-block">
+        {row2.map(skill => (
+          <span class="text-4xl md:text-5xl font-bold text-white/80 mx-4">{skill}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</Section>
+
+<script>
+  async function initSkillsAnimation() {
+    const gsap = (await import('gsap')).default;
+    
+    // Clone skills for infinite scroll effect
+    const row1 = document.querySelector('.skills-row-1 div');
+    const row2 = document.querySelector('.skills-row-2 div');
+    
+    if (row1 && row2) {
+      row1.innerHTML += row1.innerHTML;
+      row2.innerHTML += row2.innerHTML;
+      
+      // First row animation (right to left)
+      gsap.to('.skills-row-1 div', {
+        x: '-50%',
+        duration: 20,
+        ease: 'none',
+        repeat: -1
+      });
+      
+      // Second row animation (left to right)
+      gsap.fromTo('.skills-row-2 div', 
+        { x: '-50%' },
+        {
+          x: '0%',
+          duration: 20,
+          ease: 'none',
+          repeat: -1
+        }
+      );
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initSkillsAnimation);
+</script>
+
+<style>
+  .skills-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .skills-row-1, .skills-row-2 {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+</style>
