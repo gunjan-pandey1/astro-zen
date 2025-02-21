@@ -13,13 +13,18 @@ const { experience } = Astro.props;
   {
     experience.map(({ company, position, startDate, endDate, summary }, index) => (
       <div class="mb-10 experience-item" data-index={index}>
-        <h3 class="text-2xl font-serif font-semibold text-white mb-1.5">
+        <h3 class="text-2xl font-serif font-semibold text-white mb-1.5 company-title">
           {company}
         </h3>
-        <p class="text-primary font-medium mb-4">
-          {position} • {startDate} - {endDate}
-        </p>
-        <p class="text-neutral">{summary}</p>
+        <div class="position-info">
+          <p class="text-primary font-medium mb-4">
+            <span class="position">{position}</span>
+            <span class="date-range">• {startDate} - {endDate}</span>
+          </p>
+        </div>
+        <div class="summary-container">
+          <p class="text-neutral summary-text">{summary}</p>
+        </div>
       </div>
     ))
   }
@@ -32,19 +37,60 @@ const { experience } = Astro.props;
     
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.from(".experience-item", {
-      scrollTrigger: {
-        trigger: ".experience-item",
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      },
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      stagger: {
-        amount: 0.5,
-        from: "start"
-      }
+    document.querySelectorAll('.experience-item').forEach((item) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: item,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      // Company title animation
+      tl.from(item.querySelector('.company-title'), {
+        x: -50,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out"
+      })
+      // Position animation
+      .from(item.querySelector('.position'), {
+        y: 20,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.out"
+      }, "-=0.3")
+      // Date range animation
+      .from(item.querySelector('.date-range'), {
+        x: -20,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.out"
+      }, "-=0.2")
+      // Summary text animation with typewriter effect
+      .from(item.querySelector('.summary-text'), {
+        opacity: 0,
+        clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+        duration: 0.8,
+        ease: "power2.inOut"
+      }, "-=0.1");
+
+      // Hover animation for each experience item
+      item.addEventListener('mouseenter', () => {
+        gsap.to(item, {
+          scale: 1.02,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+
+      item.addEventListener('mouseleave', () => {
+        gsap.to(item, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
     });
   }
 
