@@ -5,18 +5,18 @@ type Props = HeroProps;
 const { name, specialty, summary, email } = Astro.props;
 ---
 
-<section class="py-16 md:py-24 relative" id="#hero">
+<section class="py-15 md:py-10 relative" id="#hero">
   <h1
-    class="text-7xl font-serif mb-1.5 sm:text-8xl md:text-9xl md:mb-0 text-white font-bold tracking-tightest"
+    class="text-7xl font-serif mb-1.5 sm:text-8xl md:text-9xl md:mb-0 text-white font-bold tracking-tightest hero-name"
   >
     {name}
   </h1>
   <p
-    class="text-4xl sm:text-5xl leading-[46px] md:text-6xl font-serif text-primary font-bold tracking-tighter mb-6"
+    class="text-4xl sm:text-5xl leading-[46px] md:text-6xl font-serif text-primary font-bold tracking-tighter mb-6 hero-specialty"
   >
     {specialty}
   </p>
-  <p class="text-neutral font-normal text-base md:text-lg mb-12">
+  <p class="text-neutral font-normal text-base md:text-lg mb-12 hero-summary">
     {summary}
   </p>
 
@@ -25,3 +25,29 @@ const { name, specialty, summary, email } = Astro.props;
     href={`mailto:${email}`}>Get in Touch</a
   >
 </section>
+
+<script>
+  async function initHeroAnimation() {
+    const gsap = (await import('gsap')).default;
+    
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" }});
+    
+    tl.from(".hero-name", {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+    })
+    .from(".hero-specialty", {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+    }, "-=0.5")
+    .from(".hero-summary", {
+      y: 20,
+      opacity: 0,
+      duration: 0.8,
+    }, "-=0.3");
+  }
+
+  document.addEventListener('DOMContentLoaded', initHeroAnimation);
+</script>
