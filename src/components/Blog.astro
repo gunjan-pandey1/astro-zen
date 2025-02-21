@@ -11,93 +11,73 @@ const { blog } = Astro.props;
 ---
 
 <Section text="Featured Blog" href="blog">
-  <div class="relative overflow-hidden">
-    <div id="blog-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-8 pb-8 hide-scrollbar">
-      {blog.map(({ name, summary, image, linkPreview }, index) => {
-        const top = 98 + index * 40;
-        return (
-          <div style={`top: ${top}px;`} class="snap-center flex-shrink-0 w-[90%] md:w-[600px]">
-            <div class="rounded-2xl border border-neutral/20 bg-black">
-              <div class="w-full h-[580px] md:h-96 relative z-[1] bg-[#1c232d]/85 bg-difu before:content-[''] before:rounded-2xl before:absolute before:z-[-1] before:opacity-[5%] before:inset-0 before:bg-[url(/raja.png)] before:bg-repeat before:bg-[length:128px] rounded-2xl grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2">
-                <div class="px-6 pt-12">
-                  <h3 class="text-3xl font-medium font-serif mb-5 text-primary">
-                    {name}
-                  </h3>
-                  <p class="text-neutral text-base">{summary}</p>
-                  <div class="pt-10 flex gap-5 text-white">
-                    <a
-                      href={linkPreview}
-                      target="_blank"
-                      class="hover:underline after:content-[url(/external.svg)] after:relative after:bottom-[-5px]"
-                    >
-                      Preview
-                    </a>
-                  </div>
+  {
+    blog.map(({ name, summary, image, linkPreview }, index) => {
+      const top = 98 + index * 40;
+      return (
+        <div
+          style={`top: ${top}px;`}
+          class="blog-card sticky rounded-2xl border border-neutral/20 bg-black mb-12"
+        >
+          <div class="rounded-2xl border border-neutral/20 bg-black">
+            <div class="w-full h-[580px] md:h-96 relative z-[1] bg-[#1c232d]/85 bg-difu before:content-[''] before:rounded-2xl before:absolute before:z-[-1] before:opacity-[5%] before:inset-0 before:bg-[url(/raja.png)] before:bg-repeat before:bg-[length:128px] rounded-2xl grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2">
+              <div class="px-6 pt-12">
+                <h3 class="text-3xl font-medium font-serif mb-5 text-primary">
+                  {name}
+                </h3>
+                <p class="text-neutral text-base">{summary}</p>
+                <div class="pt-10 flex gap-5 text-white">
+                  <a
+                    href={linkPreview}
+                    target="_blank"
+                    class="hover:underline after:content-[url(/external.svg)] after:relative after:bottom-[-5px]"
+                  >
+                    Preview
+                  </a>
                 </div>
-                <div class="flex items-end justify-end overflow-hidden">
-                  <Image
-                    src={image}
-                    width={580}
-                    height={580}
-                    alt={name}
-                    class="object-cover rounded-br-2xl"
-                  />
-                </div>
+              </div>
+              <div class="flex items-end justify-end overflow-hidden">
+                <Image
+                  src={image}
+                  width={580}
+                  height={580}
+                  alt={name}
+                  class="object-cover rounded-br-2xl"
+                />
               </div>
             </div>
           </div>
-        );
-      })}
-    </div>
-    <button
-      class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full hover:bg-black/75 transition-colors z-10"
-      onclick="document.getElementById('blog-carousel').scrollBy({left: -300, behavior: 'smooth'})"
-    >
-      <span class="sr-only">Previous</span>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-      </svg>
-    </button>
-    <button
-      class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full hover:bg-black/75 transition-colors z-10"
-      onclick="document.getElementById('blog-carousel').scrollBy({left: 300, behavior: 'smooth'})"
-    >
-      <span class="sr-only">Next</span>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </button>
-  </div>
-<script>
-  const blogCarousel = document.getElementById('blog-carousel') as HTMLElement;
-  let blogScrollInterval: number;
-  const scrollAmount = 300;
-  const scrollInterval = 3000;
-
-  if (blogCarousel) {
-    function startBlogAutoScroll(): void {
-      blogScrollInterval = window.setInterval(() => {
-        const maxScroll = blogCarousel.scrollWidth - blogCarousel.clientWidth;
-        const newScrollPosition = blogCarousel.scrollLeft + scrollAmount;
-        
-        if (newScrollPosition >= maxScroll) {
-          blogCarousel.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          blogCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
-      }, scrollInterval);
-    }
-
-    blogCarousel.addEventListener('mouseenter', () => {
-      window.clearInterval(blogScrollInterval);
-    });
-
-    blogCarousel.addEventListener('mouseleave', () => {
-      startBlogAutoScroll();
-    });
-
-    startBlogAutoScroll();
+        </div>
+      );
+    })
   }
+</Section>
+
+<script>
+  async function animateBlog() {
+    const gsap = (await import('gsap')).default;
+    const ScrollTrigger = (await import('gsap/ScrollTrigger')).default;
+    
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from(".blog-card", {
+      scrollTrigger: {
+        trigger: ".blog-card",
+        start: "top 75%",
+        toggleActions: "play none none reverse"
+      },
+      x: -100,
+      opacity: 0,
+      duration: 1,
+      stagger: {
+        amount: 0.5,
+        from: "start"
+      },
+      ease: "power4.out"
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', animateBlog);
 </script>
 
 <style>

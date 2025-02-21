@@ -5,24 +5,48 @@ type Props = HeroProps;
 const { name, specialty, summary, email } = Astro.props;
 ---
 
-<section class="py-24 md:py-32 relative overflow-hidden scroll-animation" id="#hero">
-  <div class="animated-bg absolute inset-0 w-full h-full -z-10"></div>
-  <h1
-    class="text-7xl font-serif mb-1.5 sm:text-8xl md:text-9xl md:mb-0 text-white font-bold tracking-tightest"
-  >
+<section class="py-24 md:py-32 relative" id="hero">
+  <h1 class="text-7xl font-serif mb-1.5 sm:text-8xl md:text-9xl md:mb-0 text-white font-bold tracking-tightest hero-title">
     {name}
   </h1>
-  <p
-    class="text-4xl sm:text-5xl leading-[46px] md:text-6xl font-serif text-primary font-bold tracking-tighter mb-9"
-  >
+  <p class="text-4xl sm:text-5xl leading-[46px] md:text-6xl font-serif text-primary font-bold tracking-tighter mb-9 hero-specialty">
     {specialty}
   </p>
-  <p class="text-neutral font-normal text-base md:text-lg mb-16">
+  <p class="text-neutral font-normal text-base md:text-lg mb-16 hero-summary">
     {summary}
   </p>
-
-  <a
-    class="text-sm py-5 px-8 text-[#fff] inline-block font-medium leading-5 bg-primary rounded-full"
-    href={`mailto:${email}`}>Get in Touch</a
-  >
+  <a class="text-sm py-5 px-8 text-[#fff] inline-block font-medium leading-5 bg-primary rounded-full hero-cta"
+    href={`mailto:${email}`}>Get in Touch</a>
 </section>
+
+<script>
+  async function animateHero() {
+    const gsap = (await import('gsap')).default;
+    
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    
+    tl.from(".hero-title", {
+      y: 100,
+      opacity: 0,
+      duration: 1
+    })
+    .from(".hero-specialty", {
+      y: 50,
+      opacity: 0,
+      duration: 0.8
+    }, "-=0.5")
+    .from(".hero-summary", {
+      y: 30,
+      opacity: 0,
+      duration: 0.8
+    }, "-=0.3")
+    .from(".hero-cta", {
+      scale: 0.8,
+      opacity: 0,
+      duration: 0.5,
+      ease: "back.out(1.7)"
+    }, "-=0.2");
+  }
+
+  document.addEventListener('DOMContentLoaded', animateHero);
+</script>
