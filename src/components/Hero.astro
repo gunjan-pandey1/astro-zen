@@ -44,9 +44,8 @@ const { name, specialty, summary, email } = Astro.props;
     .from(".hero-cta", {
       scale: 0,
       opacity: 0,
-      rotation: 360,
-      duration: 0.8,
-      ease: "elastic.out(1, 0.3)"
+      duration: 0.6,
+      ease: "back.out(1.7)"
     }, "-=0.2");
 
     // Floating animation for the button
