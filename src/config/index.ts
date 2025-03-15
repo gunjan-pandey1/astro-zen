@@ -4,7 +4,7 @@ export const SITE_CONFIG: SiteConfig = {
   title: "Gunjan Pandey — Software Developer",
   author: "Gunjan Pandey",
   description:
-    "Software Engineer based in San Francisco, USA. I specialize in UI design, web and mobile application development and maintenance.",
+    "Software Engineer based in Mumbai, India, specializing in backend development with Laravel, building scalable web applications, and implementing secure API architectures.",
   lang: "en",
   siteLogo: "/gunjan-profile.jpg",
   navLinks: [
