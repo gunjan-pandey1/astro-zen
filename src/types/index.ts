@@ -15,7 +15,6 @@ export interface SiteContent {
     row2: string[];
   };
   experience: ExperienceProps[];
-  blog: ProjectProps[];
   projects: ProjectProps[];
   about: AboutProps;
 }

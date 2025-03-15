@@ -1,25 +1,21 @@
 import type { SiteConfig, SiteContent } from "../types";
 
 export const SITE_CONFIG: SiteConfig = {
-  title: "Suraj Shetty — Software Developer",
-  author: "Suraj Shetty",
+  title: "Gunjan Pandey — Software Developer",
+  author: "Gunjan Pandey",
   description:
     "Software Engineer based in San Francisco, USA. I specialize in UI design, web and mobile application development and maintenance.",
   lang: "en",
-  siteLogo: "/alejandro-small.jpg",
+  siteLogo: "/gunjan-profile.jpg",
   navLinks: [
     { text: "Experience", href: "#experience" },
     { text: "Skills", href: "#skills" },
-    { text: "Blog", href: "#blog" },
     { text: "Projects", href: "#projects" },
     { text: "About", href: "#about" },
   ],
   socialLinks: [
-    { text: "Twitter", href: "https://github.com/immois/astro-zen" },
     { text: "LinkedIn", href: "https://github.com/immois/astro-zen" },
     { text: "Github", href: "https://github.com/immois/astro-zen" },
-    { text: "Youtube", href: "https://github.com/immois/astro-zen" },
-    { text: "Dribbble", href: "https://github.com/immois/astro-zen" },
   ],
   socialImage: "/zen-og.png",
   canonicalURL: "https://astro-zen.vercel.app",
@@ -27,21 +23,21 @@ export const SITE_CONFIG: SiteConfig = {
 
 export const SITE_CONTENT: SiteContent = {
   hero: {
-    name: "Suraj Shetty",
+    name: "gunjan Pandey",
     specialty: "Software Developer",
     summary:
       "I am a backend software developer passionate about building scalable applications using laravel and exploring GenAI and LLMs. Currently, I'm enhancing my skills in DevOps and front-end technologies like Astro.js and ReactJS to create seamless, innovative solutions.",
-    email: "shetty44444@gmail.com",
+    email: "gunjanap2018@gmail.com",
   },
   skills: {
-    row1: ["LARAVEL", "PHP", "PYTHON", "JAVASCRIPT", "REACTJS", "NODEJS", "TYPESCRIPT"],
+    row1: ["LARAVEL", "PHP", "JAVASCRIPT", "REACTJS", "TYPESCRIPT"],
     row2: ["RABBITMQ", "REDIS", "DOCKER", "KUBERNETES", "AWS", "MONGODB", "MYSQL"]
   },
   experience: [
     {
-      company: "Pay1",
+      company: "Qtech Software",
       position: "Software Developer",
-      startDate: "May 2024",
+      startDate: "September 2023",
       endDate: "Present",
       summary: [
         "Worked on Sartch Product Created Whole Backend Architecture for recharge and utility & Bill Payment.",
@@ -51,75 +47,49 @@ export const SITE_CONTENT: SiteContent = {
       ],
     },
     {
-      company: "BDM INFOTECH",
-      position: "Software Developer",
-      startDate: "Jan 2024",
-      endDate: "Feb 2024",
-      summary: [
-        "Worked on SAAS Application And Built A Admin Panel.",
-        "Started Working on Github Action and Docker and Reactjs.",
-      ],
-    },
-    {
       company: " iThink Logistics ",
       position: "Software Developer",
-      startDate: "Jun 2021",
-      endDate: "Dec 2023",
+      startDate: "May 2022",
+      endDate: "Jult 2023",
       summary: [
         "Designed and developed backend applications using PHP.",
         "Worked with front-end developers to integrate API endpoints and database queries into web applications by using Mysql for database and query and optimized queries for performance",
-        "Worked on Microservices for example Docker, RabbitMQ, Apache Kafka, Redis, Elasticsearch etc.",
+        "Worked on AWS (S3) for uploading documents and (EC2) for personal use.",
         "Implemented RabbitMQ and Redis for Queue management and Locking mechanism in php.",
       ],
     },
   ],
-  blog: [
-    {
-      name: "Hashnode Blog",
-      summary: "A blog platform where you can express yourself and connect with others Devs.",
-      linkPreview: "https://hashnode.surajshetty.blog",
-      linkSource: "https://hashnode.surajshetty.blog/",
-      image: "/hashnode-1.webp",
-    }, 
-    {
-      name: "Medium Blog",
-      summary: "Personal blog where I write about things I find interesting in development.",
-      linkPreview: "https://medium.com/@shetty44444",
-      linkSource: "https://medium.com/@shetty44444",
-      image: "/medium-1.webp",
-    },
-  ],
   projects: [
     {
-      name: "Shopify Clone",
-      summary: "A full-featured e-commerce platform built with modern web technologies.",
-      linkPreview: "https://github.com/surajshetty",
-      linkSource: "https://github.com/surajshetty",
-      image: "/shopify-clon.png",
+      name: "Education CRM",
+      summary: "A comprehensive student management system that streamlines administrative tasks, tracks academic progress, and manages institutional workflows efficiently.",
+      linkPreview: "https://github.com/gunjan-pandey1",
+      linkSource: "https://github.com/gunjan-pandey1",
+      image: "/education-crm.jpg",
     },
     {
-      name: "Instagram Clone",
-      summary: "A social media application with real-time features and image sharing.",
-      linkPreview: "https://github.com/surajshetty",
-      linkSource: "https://github.com/surajshetty",
-      image: "/clone-ig.png",
+      name: "Loan Management System",
+      summary: "An end-to-end solution for financial institutions to process loan applications.",
+      linkPreview: "https://github.com/gunjan-pandey1",
+      linkSource: "https://github.com/gunjan-pandey1",
+      image: "/loanApp.jpg",
     },
     {
-      name: "Spotify Clone",
-      summary: "A music streaming platform with playlist management and audio playback.",
-      linkPreview: "https://github.com/surajshetty",
-      linkSource: "https://github.com/surajshetty",
-      image: "/spotifu.png",
+      name: "Laravel Package",
+      summary: "A developer-friendly debugging tool that provides real-time code inspection, variable tracking, and error tracing capabilities for Laravel applications.",
+      linkPreview: "https://github.com/gunjan-pandey1",
+      linkSource: "https://github.com/gunjan-pandey1",
+      image: "/laravelPackage.jpeg",
     }
   ],
   about: {
     description: `
-      Passionate backend developer with a strong foundation in designing and implementing scalable and efficient server-side solutions. Specialized in creating robust APIs and database management. Committed to staying ahead in technology trends, I have a keen interest in Microservices architecture and a new curve in data analysis and data science, driving innovations towards AI-powered solutions. Eager to contribute to transformative projects and collaborate with like-minded professionals in the tech community. Let's connect and explore the possibilities of creating impactful solutions together!
+      Passionate backend developer with a strong foundation in designing and implementing scalable and efficient server-side solutions. Specialized in creating robust APIs and database management. Committed to staying ahead in technology trends, I have a keen interest in Microservices architecture and web security, focusing on implementing secure authentication systems and protecting against common vulnerabilities. Eager to contribute to transformative projects and collaborate with like-minded professionals in the tech community. Let's connect and explore the possibilities of creating secure, scalable solutions together!
 
-      #BackendDevelopment #Microservices #DataScience #AI #TechInnovation
+      #BackendDevelopment #Microservices #WebSecurity #SecureAPIs #CyberSecurity
     `,
-    image: "/alejandro-big.jpg",
+    image: "/gunjan-profile.jpg",
   },
-};
+};    
 
 // #5755ff
